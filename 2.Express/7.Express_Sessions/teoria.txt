@@ -1,0 +1,3 @@
+As sessões serão salvas no BD, no caso, Mongo. 
+Usaremos flash messages pra entendermos como as sessions funcionam com o express puro
+Usaremos 3 pacotes: express-session, connect-mongo, connect-flash 
