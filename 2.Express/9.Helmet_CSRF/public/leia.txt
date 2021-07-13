@@ -1,0 +1,3 @@
+A pasta public guarda tudo que você pode acessar no site, por exemplo :
+você entra aqui acessando localhost:3000/leia.txt
+

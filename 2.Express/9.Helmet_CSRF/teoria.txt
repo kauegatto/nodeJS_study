@@ -1,0 +1,10 @@
+% 'Scriptlet' tag, for control-flow, no output / Usada para controle de fluxo
+<%_ ‘Whitespace Slurping’ Scriptlet tag, strips all whitespace before it / Remove espaço em branco antes
+<%= Outputs the value into the template (HTML escaped) / Mostra o valor no template escapando HTML
+<%- Outputs the unescaped value into the template / Não escapa html 
+<%# Comment tag, no execution, no output / Comentário 
+<%% Outputs a literal '<%' /Dá output numa literal <%
+%> Plain ending tag / Acaba tag
+_%> ‘Whitespace Slurping’ ending tag, removes all whitespace after it / Tira espaço em branco dps
+
+isso veio do docs do ejs (ejs.co) 
