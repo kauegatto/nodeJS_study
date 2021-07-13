@@ -14,16 +14,15 @@ mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifie
     .catch((e) => console.log("erro: "+ e)); 
 
 const session = require('express-session');
-const mongoStore = require('connect-mongo')(session);
-const flash = require('connect-flash');
+const mongoStore = require('connect-mongo');
 
 const sessionOptions = session({
     secret: 'supersecret123',
-    store: new mongoStore({mongooseConnection: moongose.connection}),
+    store: new mongoStore({mongoUrl: process.env.CONNECTIONSTRING}),
     resave:false,
     saveUninitialized:false,
     cookie:{
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 60 * 60 * 24,
         httpOnly:true
     }
 });
@@ -32,7 +31,6 @@ const sessionOptions = session({
 //app.use(globalMiddleware);
 
 app.use(sessionOptions);
-app.use(flash());
 
 app.use(
     express.urlencoded({extended:true}) //aceitar req body

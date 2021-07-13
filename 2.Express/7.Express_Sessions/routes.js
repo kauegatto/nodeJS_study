@@ -6,12 +6,14 @@ const userController = require('./src/controllers/userController.js');
 /*
 http://www.meusite.com/{rota}/{parametro}?query=string&query=string
 */
+
 /*
 function testMiddleware (req, res, next) {
     req.session = {nome:'Alguem'};
     next();
 }
 */
+
 routes.get('/', homeController.paginaInicial);
 
 routes.get('/user/:userId?', userController.userInfo);

@@ -1,18 +1,11 @@
-const HomeModel = require('../models/HomeModel.js'); 
-
-HomeModel.create({
-    nome:'bruno',
-    descricao:'simm sou o bruno!'
-})
-    .then(dados => console.log(dados))
-    .catch( e=> console.log(e))
-
 module.exports.paginaInicial = (req,res) =>
 {
+    req.session.usuario = {nome:'vassao',sobrenome:'obrigado por me ajudar mano pprt',jwt:'sim'};
     res.render('index');
+    return;
 }
 module.exports.postInicial = (req,res) =>
 {
-    res.send("valeu por enviar aqui, mano!");
-    return;//opcional
+    res.send("valeu irmao");
+    return;
 }
