@@ -1,0 +1,16 @@
+<%- include('includes/head.html'); %> 
+<body>
+
+  <section class="container">
+    <%# comentario %> 
+    <% if(typeof titulo!== 'undefined'){ %> <%#  esse antes é a tag de controle de fluxo (if, for  while e tal)%>
+      <%= titulo %> <%# esse (%=) indica tag onde escapa o html (não executa) %>
+    <% } %>
+    
+    <%# esse <(%-) aq executa html no meio das tag %> 
+  </section>
+
+  <script src="./assets/js/bundle.js"></script>
+</body>
+
+</html>
