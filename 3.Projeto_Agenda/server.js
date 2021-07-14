@@ -1,13 +1,16 @@
 require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+
 mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     app.emit('pronto');
   })
   .catch(e => console.log(e));
-const session = require('express-session');
+
+  const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const routes = require('./routes');
 const path = require('path');
@@ -36,10 +39,15 @@ app.use(sessionOptions);
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
+app.use(
+  (err, req, res,next) =>{
+    if(err) {
+      res.status(500);
+      return res.render('404',{error:err});//eu sei q isso eh errado pf eu mudo dps, juro
+    }
+  }
+);
 app.use(csrf());
-// Nossos próprios middlewares
-app.use(middlewareGlobal);
-app.use(checkCsrfError);
 app.use(csrfMiddleware);
 app.use(routes);
 
