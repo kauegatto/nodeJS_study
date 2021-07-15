@@ -28,15 +28,20 @@ class AuthService {
         if(this.errors.length !=0){
             return;
         }
-        const salt = bcryptjs.genSaltSync();
-        this.body.password = bcryptjs.hashSync(this.body.password, salt);
-        try{
-            this.user = await UserSchema.create(this.body);
-        }catch(e){console.log(e);}
+        this.user = await UserSchema.findOne({email:this.body.email});
+        if(!this.user){
+            this.errors.push("This user doesn't exist");
+            return;
+        }
+        if(!bcryptjs.compareSync(this.body.password, this.user.password)){
+            this.errors.push("Incorrect password");
+            this.user = null;
+            return;
+        }       
     }
     async userExists(){
-        const user = await UserSchema.findOne({email:this.body.email});
-        if(user){
+        this.user = await UserSchema.findOne({email:this.body.email});
+        if(this.user){
             this.errors.push("Email already exists");
         }
     }
@@ -48,7 +53,7 @@ class AuthService {
         }
         //2. Senha com no mínimo 6 caracteres
         if(this.body.password.length < 6 || this.body.password.length > 100 ){
-            this.errors.push('Password length must have between 6 and 100 characters.');
+            this.errors.push('All passwords must have between 6 and 100 characters.');
         }
     }
     cleanUp(){
@@ -67,4 +72,4 @@ class AuthService {
         }
     }
 }
-exports.AuthService = AuthService;
+module.exports = AuthService;

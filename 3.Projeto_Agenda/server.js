@@ -17,7 +17,7 @@ const routes = require('./routes');
 const path = require('path');
 const helmet = require('helmet');
 const csrf = require('csurf');
-const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
+const { locals, errorHandler, csrfMiddleware } = require('./src/middlewares/middleware');
 
 app.use(helmet());
 
@@ -41,14 +41,8 @@ app.use(flash());
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
-app.use(
-  (err, req, res,next) =>{
-    if(err) {
-      res.status(500);
-      return res.render('404');//eu sei q isso eh errado pf eu mudo dps, juro
-    }
-  }
-);
+app.use(errorHandler);
+app.use(locals);
 app.use(csrf());
 app.use(csrfMiddleware);
 app.use(routes);
