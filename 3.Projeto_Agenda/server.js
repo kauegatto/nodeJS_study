@@ -12,6 +12,7 @@ mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifi
 
   const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
 const routes = require('./routes');
 const path = require('path');
 const helmet = require('helmet');
@@ -35,6 +36,7 @@ const sessionOptions = session({
   }
 });
 app.use(sessionOptions);
+app.use(flash());
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
@@ -43,7 +45,7 @@ app.use(
   (err, req, res,next) =>{
     if(err) {
       res.status(500);
-      return res.render('404',{error:err});//eu sei q isso eh errado pf eu mudo dps, juro
+      return res.render('404');//eu sei q isso eh errado pf eu mudo dps, juro
     }
   }
 );

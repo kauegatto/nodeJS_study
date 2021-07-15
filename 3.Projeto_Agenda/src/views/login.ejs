@@ -3,31 +3,26 @@
 <%- include('includes/navbar.ejs'); %>
 
 <div class="container">
+  <%- include('includes/messages.ejs'); %>
   <div class="row"></div>
   <div class="justify-content-center my-3">
     <h1 class="text-center">Login</h1>
-    <p class="text-center lead">Entre ou crie uma conta:</p>
+    <p class="text-center lead">Enter or create your account:</p>
     <div class="row">
         <div class='col-lg'>
-            <h4>Entre em uma conta existente:</h4>
+            <h4>Enter in an existing account:</h4>
             <form action="/login/login" method="POST">
                 <%- include('includes/loginForm.ejs')%>
             </form>
         </div>
         <div class='col-lg'>
-            <h4>Crie uma conta:</h4>
+            <h4>Create an account:</h4>
             <form action="/login/register" method="POST">
                 <%- include('includes/loginForm.ejs')%>
             </form>
         </div>
     </div>
-    <div class="row" style="display:none;">
-      <div class="col">
-        <div class="alert alert-danger text-center">eita deu erro</div>
-      </div>
-    </div>
-
-</div>
+  </div>
 </div>
 
 <%- include('includes/footer.html');%>

@@ -5,6 +5,7 @@ const HomeSchema = new mongoose.Schema({
 });
 const HomeModel = mongoose.model('Home',HomeSchema);
 
+
 module.exports = HomeModel;
 
 //esse exemplo é feito para testar os models com o mongoDB

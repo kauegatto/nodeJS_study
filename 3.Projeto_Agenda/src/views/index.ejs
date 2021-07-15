@@ -3,17 +3,10 @@
 <%- include('includes/navbar.ejs'); %>
 
 <div class="container">
-  <div class="row"></div>
+  <%- include('includes/messages.ejs'); %>
   <div class="justify-content-center my-3">
-    <h1 class="text-center">Agenda</h1>
-    <p class="text-center lead">Seus contatos abaixo:</p>
-
-    <div class="row" style="display:none;">
-      <div class="col">
-        <div class="alert alert-danger text-center">eita deu erro</div>
-      </div>
-    </div>
-
+    <h1 class="text-center">Contact Book</h1>
+    <p class="text-center lead">See your contacts below:</p>
     <div class="responsive-table my-5">
       <table class="table">
         <tr>
