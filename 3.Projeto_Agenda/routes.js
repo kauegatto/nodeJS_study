@@ -1,12 +1,12 @@
 const express = require("express");
 const routes = express.Router();
 const homeController = require('./src/controllers/homeController.js');
-const loginController = require('./src/controllers/loginController.js');
+const authController = require('./src/controllers/authController.js');
 
 //rotas da index
 routes.get('/', homeController.index);
 //rotas de login
-routes.get('/login', loginController.index);
-routes.post('/login/login', loginController.login);
-routes.post('/login/register', loginController.register);
+routes.get('/login', authController.index);
+routes.post('/login/login', authController.login);
+routes.post('/login/register', authController.register);
 module.exports = routes;

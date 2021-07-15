@@ -1,4 +1,4 @@
-const Login = require('../models/LoginModel.js');
+const Auth = require('../services/AuthService.js');
 module.exports.index = (req,res) => {
     res.render('login');
 };
@@ -7,7 +7,7 @@ module.exports.login = (req,res) => {
 };
 module.exports.register = async function (req,res) {
     try{
-        const login = new Login(req.body);
+        const login = new Auth.AuthService(req.body);
         await login.register();
 
         if(login.errors.length > 0){
