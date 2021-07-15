@@ -37,13 +37,12 @@ module.exports.register = async function (req,res) {
 
         if(Auth.errors.length > 0){
             req.flash('errors',Auth.errors);
-            req.session.user = {id:Auth.user.id,email:Auth.user.email};
             req.session.save(function(){
                 return res.redirect('../login');
             })
             return;
         } 
-        
+        req.session.user = {id:Auth.user.id,email:Auth.user.email};
         req.flash('success','User created successfully');
         req.session.save(function(){
             return res.redirect('../');
