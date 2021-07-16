@@ -1,0 +1,28 @@
+<%- include('includes/head.html'); %>
+
+<%- include('includes/navbar.ejs'); %>
+
+<div class="container">
+  <%- include('includes/messages.ejs'); %>
+  <div class="justify-content-center my-3">
+    <h1 class="text-center">Adicione um contato</h1>
+    <form action="/contacts/register" method="POST">
+        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nome</label>
+          <input type="text" name="nickname" class="form-control" id="exampleInputEmail1">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1">
+        </div>
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Telefone</label>
+          <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    </div>
+</div>
+
+<%- include('includes/footer.html');%>

@@ -15,4 +15,14 @@ module.exports.csrfMiddleware = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next();
 };
+module.exports.checkLogin = (req,res,next) => {
+  if(!req.session.user){
+    req.flash('error','You need to be logged in to access this page');
+    res.redirect('/login');
+    return;
+  }
+  else{
+    next();
+  }
+}
   
