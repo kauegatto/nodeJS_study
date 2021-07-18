@@ -70,5 +70,5 @@ module.exports.delete = async (req,res)=> {
     else{
         req.flash('success', "Your contact was deleted");
     }
-    res.redirect("../");
+    res.redirect("../../");
 }

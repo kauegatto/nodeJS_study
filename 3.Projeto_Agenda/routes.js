@@ -20,7 +20,7 @@ routes.get('/login/logOut', authController.register);
 //rotas de contato
 routes.get('/contact/:contactID?',checkLogin, contactsController.index);
 routes.post('/contact/:contactID/edit',checkLogin, contactsController.edit);
-routes.post('/contact/:contactID/delete',checkLogin, contactsController.delete);
+routes.get('/contact/:contactID/delete',checkLogin, contactsController.delete);
 routes.post('/contact/register',checkLogin, contactsController.register);
 
 module.exports = routes;
