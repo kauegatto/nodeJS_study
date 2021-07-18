@@ -24,6 +24,5 @@ module.exports.register = async function (req,res) {
     else{
         req.flash('success','Contact added!');
         return res.redirect('../contacts');
-
     }
 }
