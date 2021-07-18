@@ -31,11 +31,10 @@ module.exports.register = async (req,res) =>{
     }
     if (Contact.errors.length !=0){
         console.log("contact wasn't created:");
-        console.log(nickname,email,phoneNumber,"id:"+req.session.user.id);
         console.log(Contact.errors);
         req.flash('errors',Contact.errors);
-        return res.redirect('../contact');
         Contact.errors=[];
+        return res.redirect('../contact');
     }
     else{
         req.flash('success','Contact added!');
@@ -49,7 +48,7 @@ module.exports.edit = async (req,res)=> {
     }
     catch(e){console.log(e);return;}
     if(Contact.errors.length!=0){
-        req.flash('errors',contact.errors);
+        req.flash('errors',Contact.errors);
         Contact.errors = [];
     }
     else{

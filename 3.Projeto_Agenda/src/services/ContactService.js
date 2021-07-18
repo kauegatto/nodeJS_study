@@ -7,13 +7,13 @@ class ContactService {
     }
     async register(nickname,email,phoneNumber,owner){
         if(nickname==null || nickname==""){
-            this.errors.push("You can't let the nickname field empty");
+            this.errors.push("You can't let the name field empty");
         }
         if(owner==null || owner==""){
             this.errors.push("Error");
             return;
         }
-        if(email==null && phoneNumber==null){
+        if((email==null || email=="") && (phoneNumber==null || phoneNumber == "")){
             this.errors.push("You need to fill at least one field on email and phone number");
             return;
         }
@@ -53,21 +53,31 @@ class ContactService {
             return contactInfo;
         }
     }
-    async edit(userId, contactId, updatedInfo){
+    async edit(userId, contactId, updatedInfo)
+    {
         const contactInfo = await ContactSchema.findById(contactId);
         if (contactInfo.owner != userId){
             this.errors.push("This contact doesn't belong to your account");
             return false;
         }
         else { //contact belongs to user
-            try{
-                const edited = await ContactSchema.findByIdAndUpdate(contactId,updatedInfo);
+            if(!updatedInfo.nickname){
+                this.errors.push("Contacts needs to have a name");
             }
-            catch(e){
-                this.errors.push("We're sorry, an unkown error occured");
-                console.log(e);
+            if(!(updatedInfo.phoneNumber || updatedInfo.email)){
+                this.errors.push("At least one of the contact fields must be filled");
+            }
+            if(this.errors.length==0){
+                try{
+                    const edited = await ContactSchema.findByIdAndUpdate(contactId,updatedInfo);
+                }
+                catch(e){
+                    this.errors.push("We're sorry, an unkown error occured");
+                    console.log(e);
+                }
             }
         }
+        return;
     }
     async delete(userId,contactId){
         const contactInfo = await ContactSchema.findById(contactId);
