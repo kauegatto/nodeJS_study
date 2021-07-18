@@ -9,15 +9,19 @@
     <p class="text-center lead">See your contacts below:</p>
     <div class="responsive-table my-5">
       <table class="table">
-      <% contacts.forEach(contact => {  %>
-        <tr>
-          <td><%= contact.nickname %></td>
-          <td><%= contact.phoneNumber %></td>
-          <td><%= contact.email %></td>
-          <td><a href="/contact/<%= contact._id %>"> Edit</a></td>
-          <td><a href="/contact/<%= contact._id %>/delete" class="text-danger">Delete</a></td>
-        </tr>
-      <% });%>
+      <% if(contacts.length>0){ %>
+        <% contacts.forEach(contact => {  %>
+          <tr>
+            <td><%= contact.nickname %></td>
+            <td><%= contact.phoneNumber %></td>
+            <td><%= contact.email %></td>
+            <td><a href="/contact/<%= contact._id %>"> Edit</a></td>
+            <td><a href="/contact/<%= contact._id %>/delete" class="text-danger">Delete</a></td>
+          </tr>
+        <% });%>
+      <% } else {%>
+        <h5 class='text-center'>There are no contacts here! You should start by adding someone</h5>
+      <% } %>
       </table>
     </div>
 
