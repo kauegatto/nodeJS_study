@@ -1,0 +1,48 @@
+<%- include('includes/head.html'); %>
+
+<%- include('includes/navbar.ejs'); %>
+
+<div class="container">
+  <%- include('includes/messages.ejs'); %>
+  <div class="justify-content-center my-3">
+    <% if(contactInfo){ %>
+      <h1 class="text-center">Edit you contact</h1>
+      <form action="/contact/<%= contactInfo._id%>/edit" method="POST">
+      <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" name="nickname" class="form-control" id="exampleInputEmail1" value=<%=contactInfo.nickname%>>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" value=<%=contactInfo.email%>>
+      </div>
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" value=<%=contactInfo.phoneNumber%>>
+      </div>
+      <button type="submit" class="btn btn-primary">Edit</button>
+    <% } else { %>
+      <h1 class="text-center">Add a contact</h1>
+      <form action="/contact/register" method="POST">
+      <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" name="nickname" class="form-control" id="exampleInputEmail1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1">
+      </div>
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Add</button>
+    <% } %>
+    </form>
+    </div>
+</div>
+
+<%- include('includes/footer.html');%>

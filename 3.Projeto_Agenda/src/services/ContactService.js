@@ -33,14 +33,57 @@ class ContactService {
 
     }
     async findContacts(owner){
-        const contacts = await ContactSchema.find({owner});
-        return contacts;
-    }
-    delete(){
+        try{
+            const contacts = await ContactSchema.find({owner});
+            return contacts;
 
+        }
+        catch(e){
+            console.log(e);
+            return;
+        }
     }
-    cleanUp(){
-
+    async validateContact(userId,contactId){
+        const contactInfo = await ContactSchema.findById(contactId);
+        if (contactInfo.owner != userId){
+            this.errors.push("This contact doesn't belong to your account");
+            return null;
+        }
+        else {
+            return contactInfo;
+        }
+    }
+    async edit(userId, contactId, updatedInfo){
+        const contactInfo = await ContactSchema.findById(contactId);
+        if (contactInfo.owner != userId){
+            this.errors.push("This contact doesn't belong to your account");
+            return false;
+        }
+        else { //contact belongs to user
+            try{
+                const edited = await ContactSchema.findByIdAndUpdate(contactId,updatedInfo);
+            }
+            catch(e){
+                this.errors.push("We're sorry, an unkown error occured");
+                console.log(e);
+            }
+        }
+    }
+    async delete(userId,contactId){
+        const contactInfo = await ContactSchema.findById(contactId);
+        if (contactInfo.owner != userId){
+            this.errors.push("This contact doesn't belong to your account");
+            return false;
+        }
+        else { //contact belongs to user
+            try{
+                await ContactSchema.findByIdAndDelete(contactId);
+            }
+            catch(e){
+                this.errors.push("We're sorry, an unkown error occured");
+                console.log(e);
+            }
+        }
     }
 }
 module.exports = ContactService;

@@ -18,7 +18,9 @@ routes.post('/login/register', authController.register);
 routes.get('/login/logOut', authController.register);
 
 //rotas de contato
-routes.get('/contacts',checkLogin, contactsController.index);
-routes.post('/contacts/register',checkLogin, contactsController.register);
+routes.get('/contact/:contactID?',checkLogin, contactsController.index);
+routes.post('/contact/:contactID/edit',checkLogin, contactsController.edit);
+routes.post('/contact/:contactID/delete',checkLogin, contactsController.delete);
+routes.post('/contact/register',checkLogin, contactsController.register);
 
 module.exports = routes;
