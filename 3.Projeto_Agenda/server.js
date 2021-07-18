@@ -10,11 +10,15 @@ mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifi
   })
   .catch(e => console.log(e));
 
+//sessions
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+
 const routes = require('./routes');
+
 const path = require('path');
+
 const helmet = require('helmet');
 const csrf = require('csurf');
 const { locals, errorHandler, csrfMiddleware } = require('./src/middlewares/middleware');
@@ -36,9 +40,11 @@ const sessionOptions = session({
   }
 });
 app.use(sessionOptions);
+
 app.use(flash());
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
+
 app.set('view engine', 'ejs');
 
 app.use(errorHandler);

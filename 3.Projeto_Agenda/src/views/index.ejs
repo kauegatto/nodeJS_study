@@ -9,12 +9,13 @@
     <p class="text-center lead">See your contacts below:</p>
     <div class="responsive-table my-5">
       <table class="table">
+      <% contacts.forEach(contact => {  %>
         <tr>
-          <td>kaue</td>
-          <td>gatto</td>
-          <td>(13)991093667</td>
-          <td>kauegatto123@gmail.com</td>
+          <td><%= contact.nickname %></td>
+          <td><%= contact.phoneNumber %></td>
+          <td><%= contact.email %></td>
         </tr>
+      <% });%>
       </table>
     </div>
 

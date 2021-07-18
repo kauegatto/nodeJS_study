@@ -32,6 +32,10 @@ class ContactService {
         }
 
     }
+    async findContacts(owner){
+        const contacts = await ContactSchema.find({owner});
+        return contacts;
+    }
     delete(){
 
     }
