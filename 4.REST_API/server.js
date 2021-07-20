@@ -1,4 +1,6 @@
-const a = 12;
-const error = (valorA) => valorA + 1;
+import app from './app';
 
-console.log(error(a));
+app.listen(3000, () => {
+  console.log('Escutando na porta 3000');
+  console.log('http://localhost:3000');
+});
