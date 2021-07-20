@@ -15,8 +15,17 @@
             <td><%= contact.nickname %></td>
             <td><%= contact.phoneNumber %></td>
             <td><%= contact.email %></td>
-            <td><a href="/contact/<%= contact._id %>"> Edit</a></td>
-            <td><a href="/contact/<%= contact._id %>/delete" class="text-danger">Delete</a></td>
+            <td>
+              <form action="/contact/<%= contact._id%>" method="GET">
+                <button type="submit" class="btn btn-outline-primary">Edit</button>
+              </form>
+            </td>
+            <td>
+              <form action="/contact/<%= contact._id%>/delete" method="POST"> 
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+              </form>
+            </td>
           </tr>
         <% });%>
       <% } else {%>
