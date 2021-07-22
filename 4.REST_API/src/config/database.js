@@ -7,8 +7,9 @@ module.exports = { // Isso aqui é pra configurar as migrations: https://sequeli
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
-  timezone: 'America/Sao_Paulo',
+  timezone: '-03:00',
   dialectOptions: {
-    timezone: 'America/Sao_Paulo',
+    timezone: '-03:00',
   },
+// eslint-disable-next-line
 }

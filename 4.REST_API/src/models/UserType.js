@@ -1,8 +1,8 @@
 import Sequelize, { Model, DataTypes } from 'sequelize';
 // const sequelize = new Sequelize('sqlite::memory');
-class userType extends Model {}
+class UserType extends Model {}
 
-userType.init({
+UserType.init({
   typeId: {
     type: DataTypes.INT,
     primaryKey: true,
@@ -18,6 +18,6 @@ userType.init({
 }, {
   // Other model options go here
   sequelize, // Connection instance
-  modelName: 'User' // Mmodel name
+  modelName: 'UserType' // Mmodel name
 });
-userType.hasMany(User);
+UserType.hasMany(User);
