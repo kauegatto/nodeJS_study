@@ -4,15 +4,13 @@ class UserType extends Model {}
 
 UserType.init({
   typeId: {
-    type: DataTypes.INT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    field_name: 'type_id',
   },
   typeText: {
     type: DataTypes.TEXT,
-    field_name: 'type_text',
     allowNull: false,
   }
 }, {
@@ -20,4 +18,5 @@ UserType.init({
   sequelize, // Connection instance
   modelName: 'UserType' // Mmodel name
 });
+
 UserType.hasMany(User);
