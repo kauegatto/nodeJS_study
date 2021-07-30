@@ -1,6 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../db/database';
-import User from './User';
 
 class UserType extends Model {
   static associate({ User }) {
@@ -23,6 +22,8 @@ UserType.init({
 }, {
   // Other model options go here
   sequelize : connection, // Connection instance
-  modelName: 'UserType' // Mmodel name
+  modelName: 'usertype', // Model name
+  freezeTableName: true, // Use singular table name
+  timestamps: false, // Avoid the insertion of created_at and updated_at
 });
-export {UserType};
+export {UserType as default};

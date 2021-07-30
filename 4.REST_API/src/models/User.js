@@ -1,12 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../db/database';
-import UserType from './UserType';
 
 class User extends Model {
   static associate({ UserType }) {
     // define association here
     this.hasOne(UserType, {
       foreignKey: 'typeId',
+      allowNull: false,
     })
   }
 }
@@ -42,9 +42,16 @@ User.init({
     allowNull: false,
     type: DataTypes.DATE,
   },
+  typeId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'UserType',
+      key: 'typeId'
+    }
+  },
 }, {
   // Other model options go here
   sequelize: connection, // Connection instance
   modelName: 'User' // Mmodel name
 });
-export {User};
+export {User as default };
