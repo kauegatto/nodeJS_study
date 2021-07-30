@@ -2,9 +2,12 @@ import { Model, DataTypes } from 'sequelize';
 import connection from '../db/database';
 import User from './User';
 
-class UserType extends Model {}
-
-UserType.hasMany(User);
+class UserType extends Model {
+  static associate({ User }) {
+    // define association here
+    this.hasMany(User);
+  }
+}
 
 UserType.init({
   typeId: {

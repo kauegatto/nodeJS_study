@@ -2,9 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import connection from '../db/database';
 import UserType from './UserType';
 
-class User extends Model {}
-
-User.hasOne(UserType);
+class User extends Model {
+  static associate({ UserType }) {
+    // define association here
+    this.hasOne(UserType, {
+      foreignKey: 'typeId',
+    })
+  }
+}
 
 User.init({
   id: {
