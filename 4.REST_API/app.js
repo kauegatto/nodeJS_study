@@ -1,11 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import homeRouter from './src/routes/homeRouter';
+import db from './src/db/database';
 
 dotenv.config();
+
 class App {
   constructor() {
     this.app = express();
+    this.database = db;
     this.middlewares();
     this.routes();
   }

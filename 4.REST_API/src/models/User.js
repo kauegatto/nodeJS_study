@@ -1,41 +1,45 @@
-import Sequelize, { Model, DataTypes } from 'sequelize';
-// const sequelize = new Sequelize('sqlite::memory');
+import { Model, DataTypes } from 'sequelize';
+import connection from '../db/database';
+import UserType from './UserType';
+
 class User extends Model {}
+
+User.hasOne(UserType);
 
 User.init({
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: Sequelize.DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
   },
   firstName: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   lastName: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   phoneNumber: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   createdAt: {
     allowNull: false,
-    type: Sequelize.DataTypes.DATE,
+    type: DataTypes.DATE,
   },
   updatedAt: {
     allowNull: false,
-    type: Sequelize.DataTypes.DATE,
+    type: DataTypes.DATE,
   },
 }, {
   // Other model options go here
-  sequelize, // Connection instance
+  sequelize: connection, // Connection instance
   modelName: 'User' // Mmodel name
 });
-User.hasOne(UserType)
+export {User};
