@@ -1,12 +1,13 @@
 'use strict';
 module.exports = {
   up: async (queryinterface, Sequelize) => { 
-    await queryinterface.addColumn('Users','typeId',Sequelize.DataTypes.INTEGER, { 
+    await queryinterface.addColumn('users','typeId',Sequelize.DataTypes.INTEGER, { 
       allowNull: false,
     });
-    await queryinterface.addConstraint('Users', {
+    await queryinterface.addConstraint('users', {
       type:'foreign key',
       fields: ['typeId'],
+      name: 'fk_typeId_usertype_users',
       references: { 
         table: 'UserType',
         field: 'typeId',
@@ -14,7 +15,7 @@ module.exports = {
     });
   },
   down: async (queryinterface, Sequelize) => {
-    await queryinterface.removeColumn('Users','typeId');
-    await queryinterface.removeConstraint('Users','typeId');
+    await queryinterface.removeConstraint('users','fk_typeId_usertype_users');
+    await queryinterface.removeColumn('users','typeId');
   }
 };
