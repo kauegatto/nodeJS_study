@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../db/database';
+import bcryptjs from 'bcryptjs';
 
 class User extends Model {
   static associate({ UserType }) {
@@ -9,6 +10,7 @@ class User extends Model {
       allowNull: false,
     })
   }
+  
 }
 
 User.init({
@@ -18,21 +20,41 @@ User.init({
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  firstName: {
+  name: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: '',
+    validate: {
+      len: {
+        args: [3,255],
+        msg: "Name field must be between 3 e 255 characters",
+      }
+    }
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: '',
+    validate: {
+      isEmail: {
+        msg: "Invalid email",
+      }
+    }
+  },
+  password: {
+    type: DataTypes.STRING,
+    defaultValue: '',
+    validate: {
+      len: {
+        args: [6,80],
+        msg: "Password must be between 6 and 80 characters",
+      }
+    }  
+  },
+  password_hash: {
+    type:  DataTypes.VIRTUAL,
+    defaultValue: '',
   },
   phoneNumber: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   createdAt: {
     allowNull: false,
@@ -44,6 +66,7 @@ User.init({
   },
   typeId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: 'UserType',
       key: 'typeId'
@@ -53,5 +76,9 @@ User.init({
   // Other model options go here
   sequelize: connection, // Connection instance
   modelName: 'User' // Mmodel name
+});
+// init before adding hooks!
+User.addHook('beforeSave', async user => {
+  user.password_hash = await bcryptjs.hash(user.password, 10);
 });
 export {User as default };
