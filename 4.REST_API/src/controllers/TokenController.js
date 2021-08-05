@@ -1,4 +1,3 @@
-import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
@@ -19,10 +18,11 @@ class TokenController {
       if (!user) {
         res.status(400);
         res.json({ errors: ['User does not exist'] });
+        return;
       }
-      const isValidPass = bcryptjs.compare(user.getDataValue('password'), password);
-      if (!(isValidPass)) {
+      if (!(await user.isValidPass(password))) {
         res.status(401).json({ errors: ['invalid password'] });
+        return;
       }
       const id = user.getDataValue('id');
       const token = jwt.sign(
@@ -31,9 +31,9 @@ class TokenController {
         { expiresIn: process.env.TOKEN_EXPIRATION }, // options object
       );
       res.status(200).json(token);
+      return;
     } catch (e) {
-      res.status(500);
-      res.send(`server error: ${e}`);
+      res.status(500).send('server error');
     }
   }
 }

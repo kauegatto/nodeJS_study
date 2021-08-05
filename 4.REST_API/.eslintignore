@@ -1,3 +1,2 @@
 src/db/migrations/*.js
 src/db/seeds/*.js
-src/models/*.js
