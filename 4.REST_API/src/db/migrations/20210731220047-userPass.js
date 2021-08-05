@@ -4,13 +4,14 @@ module.exports = {
     await queryinterface.addColumn('Users','password',Sequelize.DataTypes.STRING, { 
       allowNull: false,
     });
-    await queryinterface.changeColumn('Users','email',Sequelize.DataTypes.STRING, { 
-      unique: true,
+    await queryinterface.addConstraint('users', {
+      type:'unique',
+      fields: ['email'],
+      name: 'unique_email',
     });
   },
   down: async (queryinterface, Sequelize) => {
     await queryinterface.removeColumn('Users','password');
-    await queryinterface.changeColumn('Users','email',Sequelize.DataTypes.STRING, { 
-      unique: false,
-    });  }
+    await queryinterface.removeConstraint('users','unique_email');
+  }
 };

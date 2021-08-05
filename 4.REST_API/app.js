@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import homeRouter from './src/routes/homeRouter';
 import db from './src/db/database';
 import userRouter from './src/routes/userRouter';
+import tokenRouter from './src/routes/tokenRouter';
 
 dotenv.config();
 
@@ -20,8 +20,8 @@ class App {
   }
 
   routes() {
-    this.app.use('/', homeRouter);
-    this.app.use(userRouter);
+    this.app.use('/tokens/', tokenRouter);
+    this.app.use('/user/', userRouter);
   }
 }
 export default new App().app; // já exporta instanciado o express (App.app)

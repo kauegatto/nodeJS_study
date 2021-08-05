@@ -10,9 +10,7 @@ class User extends Model {
       allowNull: false,
     })
   }
-  
 }
-
 User.init({
   id: {
     allowNull: false,
