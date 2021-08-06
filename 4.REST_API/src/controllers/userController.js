@@ -59,13 +59,18 @@ class UserController {
       const user = await User.findByPk(id);
       // req body validation;
       if (user) {
-        await user.update(req.body).then(
-          (updatedUser) => res.send(updatedUser),
-        );
-      } else {
-        res.status(400);
-        res.json({ errors: ["user doesn't exist"] });
+        if ((User.isTypeAdmin(req.userTypeId)) || (user.getDataValue('id') === req.userId)) {
+          await user.update(req.body).then(
+            (updatedUser) => res.send(updatedUser),
+          );
+          return;
+        } // check if logged user is admin or the user that is being updated
+
+        res.status(401).json({ errors: ["You're not authorized to update another user's infomation unless you're an administrator or the user itself"] });
+        return;
       }
+      res.status(400);
+      res.json({ errors: ["user doesn't exist"] });
     } catch (e) {
       res.status(500);
       res.json({ errors: ['Server errror'] });
