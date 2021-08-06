@@ -57,9 +57,10 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await User.findByPk(id);
+      const loggedUser = await User.findByPk(req.userId);
       // req body validation;
-      if (user) {
-        if ((User.isTypeAdmin(req.userTypeId)) || (user.getDataValue('id') === req.userId)) {
+      if (user && loggedUser) {
+        if ((loggedUser.isAdmin()) || (user.getDataValue('id') === req.userId)) {
           await user.update(req.body).then(
             (updatedUser) => res.send(updatedUser),
           );
@@ -82,8 +83,9 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await User.findByPk(id);
-      if (user) {
-        if (!User.isTypeAdmin(req.userTypeId)) {
+      const loggedUser = await User.findByPk(req.userId);
+      if (user && loggedUser) {
+        if (!loggedUser.isAdmin()) {
           res.status(401).json({ errors: ["You're not authorized to delete another user unless you're an administrator"] });
           return;
         } // check if logged user is admin

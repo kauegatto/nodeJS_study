@@ -6,7 +6,7 @@ const userRouter = new Router();
 
 userRouter.post('/create', userController.create);
 
-userRouter.get('/', userController.findAll);
+userRouter.get('/', loginRequired, userController.findAll);
 userRouter.get('/:id', userController.findOne);
 
 userRouter.put('/:id', loginRequired, userController.update);

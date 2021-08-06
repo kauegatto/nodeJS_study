@@ -13,8 +13,8 @@ export default (req, res, next) => {
     // eslint-disable-next-line no-unused-vars
     const [text, token] = authorization.split(' ');
     const data = jwt.verify(token, process.env.TOKEN_SECRET);
-    const { id, email, userType } = data;
-    req.userId = id; req.userEmail = email; req.userTypeId = userType;
+    const { id } = data;
+    req.userId = id;
   } catch (e) {
     res.status(401).json({ errors: ['Invalid or expired token'] });
   }
