@@ -12,6 +12,8 @@ class User extends Model {
     });
   }
 
+  static isTypeAdmin(typeId) { return typeId === 3; }
+
   async isValidPass(password) { return bcryptjs.compare(password, this.password); }
 }
 

@@ -25,8 +25,9 @@ class TokenController {
         return;
       }
       const id = user.getDataValue('id');
+      const userType = user.getDataValue('typeId');
       const token = jwt.sign(
-        { id, email }, // payload
+        { id, email, userType }, // payload
         process.env.TOKEN_SECRET, // secret
         { expiresIn: process.env.TOKEN_EXPIRATION }, // options object
       );

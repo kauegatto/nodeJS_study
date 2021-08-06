@@ -78,14 +78,21 @@ class UserController {
       const { id } = req.params;
       const user = await User.findByPk(id);
       if (user) {
+        if (!User.isTypeAdmin(req.userTypeId)) {
+          res.status(401).json({ errors: ["You're not authorized to delete another user unless you're an administrator"] });
+          return;
+        } // check if logged user is admin
         await user.destroy().then(
           (deleted) => res.send(deleted),
         );
+      } else {
+        res.status(400);
+        res.json('this user doesn\'t exist');
+        return;
       }
-      res.status(400);
-      res.json('this user doesn\'t exist');
     } catch (e) {
-      res.send('error');
+      console.log(e);
+      res.status(500).json({ error: ['server error'] });
     }
   }
 }
