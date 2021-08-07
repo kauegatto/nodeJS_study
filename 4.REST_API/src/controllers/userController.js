@@ -3,11 +3,18 @@ import User from '../models/User';
 class UserController {
   // find all
   async findAll(req, res) {
+    // needs to be an admin ( not like they wouldn't be able to map since it's an auto-incremented)
     try {
-      const users = await User.findAll({
-        attributes: ['name', 'email'],
-      });
-      res.json(users);
+      const loggedUser = await User.findByPk(req.userId); // cause token may be outdaded.
+      if (loggedUser.isAdmin()) {
+        const users = await User.findAll({
+          attributes: ['id', 'name', 'email', 'phoneNumber', 'typeId'],
+        });
+        res.json(users);
+        return;
+      }
+
+      res.status(401).json({ errors: ['You need to be an admin in order to realize this action'] });
     } catch (e) {
       res.send('error');
     }
@@ -42,10 +49,15 @@ class UserController {
 
   // find one - read
   async findOne(req, res) {
+    // theoretically any user can see this information as long they're logged in.
+    // at least if you treat this system as a bizarre facebook or smth.
     try {
       const { id } = req.params;
-      console.log(req.params);
-      const user = await User.findByPk(id);
+      const user = await User.findOne({
+        where: { id },
+        attributes: ['name', 'email', 'phoneNumber'],
+      });
+      if (!user) { res.status(200).json({ message: 'no user found with this id' }); return; }
       res.json(user);
     } catch (e) {
       res.send('error');
